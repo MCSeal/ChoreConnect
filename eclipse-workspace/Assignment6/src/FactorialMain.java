@@ -21,7 +21,7 @@ public class FactorialMain
 	{
 		int factorialNumber;
 		                
-		System.out.println("Enter a number to calculate the factorial: ");
+		System.out.println("Type in a number to calculate the factorial: ");
 		int number = in.nextInt ();
 				
 		factorialNumber = calcFactorial(number);
