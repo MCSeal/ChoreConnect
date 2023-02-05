@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CC53A34F-736C-8B7B-264B-209203FBAFD8" name="SERVICE">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:02:19 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<ordsAlias>table_3</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SERVICE_ID" id="EC118D08-02D8-9575-4367-B631209D3055">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:02:55 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>15</dataTypePrecision>
+<ownDataTypeParameters>,15,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SERVICE_NAME" id="665D7B2D-B8C0-EC4B-35C2-3CC3B5E0F124">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:03:12 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SERVICE_FEE" id="9A5D6BD3-28C6-3B23-632E-BC45BA172FB3">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:03:33 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="083E35F5-59DF-02FD-2975-93A623849ABC" name="SERVICE_PK">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:02:55 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EC118D08-02D8-9575-4367-B631209D3055"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

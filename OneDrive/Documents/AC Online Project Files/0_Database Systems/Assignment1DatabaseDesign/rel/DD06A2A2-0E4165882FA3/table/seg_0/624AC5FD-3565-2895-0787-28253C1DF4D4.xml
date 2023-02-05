@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="624AC5FD-3565-2895-0787-28253C1DF4D4" name="GUEST">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:06:05 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<ordsAlias>table_4</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GUEST_ID" id="A52270A4-1779-B93C-8BC6-6A21B31C7DFA">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:06:34 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FIRST_NAME" id="F29D6B38-F5B0-609E-F60B-55B3F57A0CC4">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:07:39 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_NAME" id="DA1693E6-63DA-6A8F-D013-24E8604F343A">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:07:52 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CITY" id="D35E9B81-F943-4EA0-A38D-F8B42E6FE352">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:08:11 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROVINCE" id="0AB7436A-8588-5D6E-AC81-6F104AFFA310">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:08:37 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="37DC0EF3-FA8C-D94F-5B7D-94630D2BA0E9" name="GUEST_PK">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:06:34 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A52270A4-1779-B93C-8BC6-6A21B31C7DFA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

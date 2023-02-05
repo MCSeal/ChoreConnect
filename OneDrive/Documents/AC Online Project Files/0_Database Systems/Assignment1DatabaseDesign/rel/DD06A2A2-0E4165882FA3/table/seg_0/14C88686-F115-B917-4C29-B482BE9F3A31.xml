@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="14C88686-F115-B917-4C29-B482BE9F3A31" name="FEE_SS">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 03:57:47 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<ordsAlias>table_1</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="FEE_ID" id="A4475308-81FE-CEBB-BEB5-58347FE0822D">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 03:59:26 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>15</dataTypePrecision>
+<ownDataTypeParameters>,15,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FEE_DESCRIPTION" id="964F105D-5C6F-0BE1-A5FA-04DA6EFFB265">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:00:49 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DATE_CHARGED" id="AB15A862-ABFA-EC06-A1F6-DB24716E1235">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:01:07 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FEE_CHARGED" id="28A5EFF0-09C4-D3EC-7D18-185ABBBDF487">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:01:30 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SERVICE_ID" id="CDE775FA-51F7-681C-E6C3-76C5474EDB0B">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:09:51 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>15</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F126DBBB-CA3D-F333-96C2-9F2768B0A51D" referredColumn="EC118D08-02D8-9575-4367-B631209D3055"/>
+</associations>
+</Column>
+<Column name="GUEST_ID" id="2A773A83-90CE-53B8-2AF9-A31E9B646202">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:16:06 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DD665DB7-DA85-BE77-C487-40E0A42B53D3" referredColumn="A52270A4-1779-B93C-8BC6-6A21B31C7DFA"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="406ECA8B-35BA-CD1A-791D-D057180ED91B" name="SERVICE_FK">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:09:51 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CDE775FA-51F7-681C-E6C3-76C5474EDB0B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="15363EA7-FE80-618D-C33C-CEEBA3284A87" name="GUEST_FK">
+<createdBy>Admi</createdBy>
+<createdTime>2023-02-05 04:16:06 UTC</createdTime>
+<ownerDesignName>Assignment1DatabaseDesign</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2A773A83-90CE-53B8-2AF9-A31E9B646202"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
