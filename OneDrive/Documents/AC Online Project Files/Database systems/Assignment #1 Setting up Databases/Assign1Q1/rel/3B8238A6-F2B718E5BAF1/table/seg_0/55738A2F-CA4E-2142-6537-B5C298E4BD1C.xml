@@ -1,0 +1,136 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="55738A2F-CA4E-2142-6537-B5C298E4BD1C" name="FEE">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 00:50:01 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<ordsAlias>table_1</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="FeeID" id="9A30C357-33F3-8427-6A10-B60D644481CC">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 00:58:33 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FeeName" id="5C732874-D454-07EB-D4C3-356F7D78C07B">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 00:58:33 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FeeDescription" id="E6A938DD-FD40-0244-FC4F-AD6C18557A1D">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 00:58:33 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300</dataTypeSize>
+<ownDataTypeParameters>300,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DateCharged" id="B932EEC8-13B7-2F42-D7FF-12E78C7A7DCA">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 00:58:33 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FeeCharged" id="03358397-0488-9EA1-93B4-93245EDED111">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 00:58:33 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,6,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="GuestID" id="635D6E05-DB9A-11F4-77D9-8073F1D59FB7">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:12:14 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FF7384E4-B2A3-39EC-9E00-27E761EF0C7A" referredColumn="D869A6D5-FF39-5CC4-592C-38EB0291377D"/>
+</associations>
+</Column>
+<Column name="FeeTypeID" id="AED906E3-5B5A-13D8-D6D8-874E1B380EC5">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:13:29 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E40009EC-FF2D-89BA-9F48-D52A64B82A03" referredColumn="14BA527C-45B5-E107-9E5F-26A4DEEBCBED"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6FB29EEA-7F14-2DEC-03A4-F5E7750EB4C2" name="FeePK">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 00:58:33 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9A30C357-33F3-8427-6A10-B60D644481CC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3BD1FD16-2090-2711-B6B3-8139A3747299" name="FeeGuestFK">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:12:14 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="635D6E05-DB9A-11F4-77D9-8073F1D59FB7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6D94E5BE-00FB-5834-4CA0-B2DA4C4E0F01" name="Fee_FeeTypeFK">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:13:29 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AED906E3-5B5A-13D8-D6D8-874E1B380EC5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

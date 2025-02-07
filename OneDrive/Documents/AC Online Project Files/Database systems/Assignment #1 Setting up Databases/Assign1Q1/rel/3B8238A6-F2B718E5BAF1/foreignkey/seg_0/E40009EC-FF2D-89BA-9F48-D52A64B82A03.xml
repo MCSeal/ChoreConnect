@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E40009EC-FF2D-89BA-9F48-D52A64B82A03" containerWithKeyObject="55738A2F-CA4E-2142-6537-B5C298E4BD1C" localFKIndex="6D94E5BE-00FB-5834-4CA0-B2DA4C4E0F01" name="Fee_FeeTypeFK">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:13:29 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<referredTableLongName>FEE_TYPE</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E6EAB742-E88A-9344-7D77-47050CBDD09A</referredTableID>
+<keyObject>C66D9A11-FD6A-186C-93BE-047D00B966A1</keyObject>
+<referredKeyID>C66D9A11-FD6A-186C-93BE-047D00B966A1</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>FeeTypeID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

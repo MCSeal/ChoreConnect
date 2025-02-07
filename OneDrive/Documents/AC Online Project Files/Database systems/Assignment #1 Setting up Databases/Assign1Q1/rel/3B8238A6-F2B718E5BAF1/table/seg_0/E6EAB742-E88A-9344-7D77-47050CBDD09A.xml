@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E6EAB742-E88A-9344-7D77-47050CBDD09A" name="FEE_TYPE">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 00:58:49 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<ordsAlias>table_2</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="FeeTypeID" id="14BA527C-45B5-E107-9E5F-26A4DEEBCBED">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:01:38 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FeeTypeName" id="69BC6CCC-3C0A-3D02-104E-9BBBF32B3734">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:01:38 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DefaultAmount" id="DB268B5F-C6CF-AA1F-BEC5-F9864864ECC6">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:01:38 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,6,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C66D9A11-FD6A-186C-93BE-047D00B966A1" name="FeeTypePK">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:01:38 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="14BA527C-45B5-E107-9E5F-26A4DEEBCBED"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

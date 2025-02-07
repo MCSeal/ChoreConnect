@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="686F6C0C-6F27-4BB9-538B-7D6AA3C7D8CE" name="GUEST">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:01:53 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<ordsAlias>table_3</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GuestID" id="D869A6D5-FF39-5CC4-592C-38EB0291377D">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:03:45 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FirstName" id="2544992B-9821-DBFA-26B8-6DDF3DDC1A9B">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:03:45 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Lastname" id="A5A301CB-CFC4-74D2-2063-068D632AA867">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:03:45 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="City" id="10E26F18-EA19-17BD-5749-733CF6EF6F7E">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:03:45 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Province" id="9691DC02-92B4-7B0B-E8D7-73012D2B017A">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:03:45 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B29DAF4D-3348-B1D2-982D-B0F37505FC8C" name="GuestPK">
+<createdBy>Admi</createdBy>
+<createdTime>2025-02-07 01:03:45 UTC</createdTime>
+<ownerDesignName>Assign1Q1</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D869A6D5-FF39-5CC4-592C-38EB0291377D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
