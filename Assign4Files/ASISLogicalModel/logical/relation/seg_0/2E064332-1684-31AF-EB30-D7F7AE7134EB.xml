@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="MANAGER monitors EMPLOYEE" directorySegmentName="seg_0" id="2E064332-1684-31AF-EB30-D7F7AE7134EB">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:52:24 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<sourcePk>89AAD63F-695B-3C59-7D8C-3348F9D1B66E</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>monitors</nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FC9506E5-5F57-AB73-9771-BE4918023CE4</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>440582EA-6CA3-7D1C-2514-07DC9BE01E7D</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

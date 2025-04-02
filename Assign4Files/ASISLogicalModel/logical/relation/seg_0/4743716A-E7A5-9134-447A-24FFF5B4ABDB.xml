@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="PAYMENT made to VENDOR" directorySegmentName="seg_0" id="4743716A-E7A5-9134-447A-24FFF5B4ABDB">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:39:40 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<sourcePk>706CB5CD-1993-D9D4-F464-F3ACE2872536</sourcePk>
+<identifying>true</identifying>
+<nameOnSource>made to </nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>63CD6DD4-88F1-0723-70AD-F6E3FF41D230</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>2E803882-2A0C-9CEC-33A2-05A0E82A8E1D</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

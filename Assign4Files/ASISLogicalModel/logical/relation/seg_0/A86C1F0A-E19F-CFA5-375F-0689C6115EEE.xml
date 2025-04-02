@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="CUSTOMER requests PURCHASE" directorySegmentName="seg_0" id="A86C1F0A-E19F-CFA5-375F-0689C6115EEE">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:08:43 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<sourcePk>F13AAC08-EE2D-0C2E-1058-6A6A2F9EA230</sourcePk>
+<identifying>true</identifying>
+<nameOnSource>requests</nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>6BA505BA-DCD8-88B4-98C2-44A2BA6DAE1F</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F4122B7D-6C83-5CAA-F216-02161181E4F3</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="EMPLOYEE submits PAYMENT" directorySegmentName="seg_0" id="22876E59-20DF-5A49-6F98-08D763174813">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:37:04 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<sourcePk>EC8A1A93-1C6B-96E9-4140-CE0E1DEA8239</sourcePk>
+<identifying>true</identifying>
+<nameOnSource>submits</nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>440582EA-6CA3-7D1C-2514-07DC9BE01E7D</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>63CD6DD4-88F1-0723-70AD-F6E3FF41D230</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

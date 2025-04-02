@@ -1,0 +1,69 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2E803882-2A0C-9CEC-33A2-05A0E82A8E1D" name="VENDOR">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:31:19 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="VendorID" id="C57B2F93-1EFC-4BE3-9F29-3B6937774B82">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:31:28 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PaymentID" id="5686085A-BFBD-C03C-FBA2-608DF89362EC">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:39:40 UTC</createdTime>
+<generatorID>4743716A-E7A5-9134-447A-24FFF5B4ABDB</generatorID>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<referedAttribute>5DEB724D-124F-D522-A28D-55BA9AC7E758</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="EmployeeID" id="85881E82-8EC8-EBEF-AEF3-D1029758922A">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:39:40 UTC</createdTime>
+<generatorID>4743716A-E7A5-9134-447A-24FFF5B4ABDB</generatorID>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<referedAttribute>0189BB51-7626-7F02-050B-0C21E480531E</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="9F4D4530-B78C-2AF0-ABCD-A849EDB1F031" name="VENDOR PK">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:31:33 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>C57B2F93-1EFC-4BE3-9F29-3B6937774B82</attributeRef>
+<attributeRef>5686085A-BFBD-C03C-FBA2-608DF89362EC</attributeRef>
+<attributeRef>85881E82-8EC8-EBEF-AEF3-D1029758922A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

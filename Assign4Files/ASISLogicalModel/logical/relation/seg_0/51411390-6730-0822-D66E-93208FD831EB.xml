@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="EMPLOYEE receives WAGE" directorySegmentName="seg_0" id="51411390-6730-0822-D66E-93208FD831EB">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:44:41 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<sourcePk>EC8A1A93-1C6B-96E9-4140-CE0E1DEA8239</sourcePk>
+<identifying>true</identifying>
+<nameOnSource>receives</nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>440582EA-6CA3-7D1C-2514-07DC9BE01E7D</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>BA2E2011-0C59-9538-19DA-FAB5B287A92D</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

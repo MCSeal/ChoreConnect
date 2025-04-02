@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="VENDOR sells PRODUCT" directorySegmentName="seg_0" id="04F7EE77-92B0-2F9B-7E59-F1AFC004D3B8">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:34:32 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<sourcePk>9F4D4530-B78C-2AF0-ABCD-A849EDB1F031</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>sells </nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>2E803882-2A0C-9CEC-33A2-05A0E82A8E1D</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>C011FB19-F61C-B9C3-24A1-F30599AACF8D</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

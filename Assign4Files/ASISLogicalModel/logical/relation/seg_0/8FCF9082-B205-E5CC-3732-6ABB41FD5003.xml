@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="SALESPERSON facilitates PURCHASE" directorySegmentName="seg_0" id="8FCF9082-B205-E5CC-3732-6ABB41FD5003">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-02 01:47:28 UTC</createdTime>
+<ownerDesignName>ASISLogicalModel</ownerDesignName>
+<engineerTo>
+<item key="D3B87674-A351-CC54-E900-6C0338CA9F67" value="true"/>
+</engineerTo>
+<sourcePk>94C0CB6F-057B-E8BF-1B26-13CC7DB9D42B</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>facilitates</nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>31297438-36CD-FE89-8EDF-0F24D722DC9F</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F4122B7D-6C83-5CAA-F216-02161181E4F3</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
