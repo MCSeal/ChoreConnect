@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="DataWHRelModel" id="472DEF2B-F6E3-FBD5-1F3B-88B542C7F3E3" version="3.5">
+<createdBy>Admi</createdBy>
+<createdTime>2025-04-20 17:19:43 UTC</createdTime>
+<ownerDesignName>DataWHRelModel</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>472DEF2B-F6E3-FBD5-1F3B-88B542C7F3E3</designId>
+</OSDM_Design>
