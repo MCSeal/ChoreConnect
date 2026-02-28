@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Chore · ChoreConnect</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Fixed styles.css link -->
+</head>
+<body>
+  <header class="header container">
+    <a class="brand" href="./chores_list.html" aria-label="Chore Tracker">
+      <div class="brand-logo" aria-hidden="true"></div>
+      <div class="brand-title">ChoreConnect</div>
+    </a>
+  </header>
+  
+  <main class="container">
+    <section class="card" aria-labelledby="es#create-title">
+      <h1 id="es#create-title">Create a chore</h1>
+      <!-- Optional success or error messages -->
+      <!-- <div class="notice success">${message}</div> -->
+      <!-- <div class="notice error" role="alert">${error}</div> -->
+
+      <!-- Create chore form -->
+      <form method="POST" action="/chores/create">
+        <input type="hidden" name="csrfToken" value="${csrfToken}">
+        
+        <div class="form-grid cols-2">
+          <div>
+            <label for="es#chore-title">Title</label>
+            <input class="input" id="es#chore-title" name="title" type="text" maxlength="120" required>
+          </div>
+          <div>
+            <label for="es#chore-assignee">Assignee</label>
+            <input class="input" id="es#chore-assignee" name="assignee" type="text" placeholder="e.g., Alex" required>
+            <!-- Alternatively, replace with a <select> built from server-side list -->
+          </div>
+          <div>
+            <label for="es#chore-due">Due date</label>
+            <input class="input" id="es#chore-due" name="dueDate" type="date">
+          </div>
+          <div>
+            <label for="es#chore-priority">Priority</label>
+            <select class="input" id="es#chore-priority" name="priority">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM" selected>Medium</option>
+              <option value="HIGH">High</option>
+            </select>
+          </div>
+          <div style="grid-column: 1/-1">
+            <label for="es#chore-notes">Notes</label>
+            <textarea class="input" id="es#chore-notes" name="notes" rows="4" placeholder="Optional"></textarea>
+          </div>
+        </div>
+        
+        <div class="actions" style="margin-top:12px">
+          <button class="btn btn-primary" type="submit">Save chore</button>
+          <a class="btn btn-secondary" href="chores_list.html">Back to list</a> <!-- Fixed link -->
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

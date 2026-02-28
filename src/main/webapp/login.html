@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login · ChoreConnect</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header container">
+    <div class="brand-logo" aria-hidden="true"></div>
+    <div class="brand-title">ChoreConnect</div>
+  </header>
+
+  <main class="container">
+    <section class="card" aria-labelledby="es#login-title">
+      <h1 id="es#login-title">Sign in</h1>
+      <form action="/auth/login" method="POST">
+        <!-- Server can inject messages below -->
+        <!-- Example: <div class="notice error" role="alert">${error}</div> -->
+        <input type="hidden" name="csrfToken" value="${csrfToken}">
+        <div class="form-grid">
+          <div>
+            <label for="es#login-email">Email</label>
+            <input class="input" id="es#login-email" name="email" type="email" required>
+          </div>
+          <div>
+            <label for="es#login-password">Password</label>
+            <input class="input" id="es#login-password" name="password" type="password" minlength="8" required>
+          </div>
+        </div>
+        <div class="actions" style="margin-top:12px">
+          <button class="btn btn-primary" type="submit">Sign in</button>
+        </div>
+      </form>
+      <p>Don't have an account? <a href="register.html">Create account</a></p>
+    </section>
+    <p class="footer">© 2026 ChoreConnect</p>
+  </main>
+</body>
+</html>

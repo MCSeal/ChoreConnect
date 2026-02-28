@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chores · Chore Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header container">
+    <a class="brand" href="./chores_list.html" aria-label="Chore Tracker">
+      <div class="brand-logo" aria-hidden="true"></div>
+      <div class="brand-title">Chore Tracker</div>
+    </a>
+    <nav class="actions">
+      <form method="post" action="/signout">
+        <input type="hidden" name="csrfToken" value="${csrfToken}">
+        <button class="btn" type="submit">Sign out</button>
+      </form>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card" aria-labelledby="es#list-title">
+      <div class="actions" style="justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
+        <h1 id="es#list-title" style="margin: 0;">My chores</h1>
+        <form method="get" action="/chores">
+          <label for="es#filter-status" style="margin-right: 6px;">Status</label>
+          <select class="input" id="es#filter-status" name="status">
+            <option value="ALL">All</option>
+            <option value="OPEN" selected>Open</option>
+            <option value="DONE">Done</option>
+          </select>
+          <label for="es#filter-q" class="visually-hidden" style="position: absolute; left: -9999px;">Search</label>
+          <input class="input" id="es#filter-q" type="search" name="q" placeholder="Search...">
+          <button class="btn btn-primary" type="submit">Apply</button>
+        </form>
+      </div>
+
+      <!-- <div class="notice success">${message}</div> -->
+      <div class="card" style="padding: 0;">
+        <table class="table" aria-describedby="es#list-title">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Assignee</th>
+              <th>Due</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example row; render with JSP/JSTL -->
+            <!--
+            <c:forEach items="${chores}" var="ch">
+              <tr>
+                <td>${ch.title}</td>
+                <td>${ch.assignee}</td>
+                <td>${ch.dueDate}</td>
+                <td>${ch.priority}</td>
+                <td>
+                  <span class="badge ${ch.done ? 'done' : 'open'}">${ch.done ? 'Done' : 'Open'}</span>
+                </td>
+                <td class="actions">
+                  <form method="post" action="/chores/mark-done">
+                    <input type="hidden" name="csrfToken" value="${csrfToken}">
+                    <input type="hidden" name="id" value="${ch.id}">
+                    <button class="btn" type="submit">Mark done</button>
+                  </form>
+                </td>
+              </tr>
+            </c:forEach>
+            -->
+            <tr>
+              <td colspan="6" style="color: var(--muted);">No chores yet. <a href="chore_create.html">Create one</a>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="footer">Showing ${count:0} items</p>
+  </main>
+</body>
+</html>
