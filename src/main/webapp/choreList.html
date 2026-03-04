@@ -3,13 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chores · Chore Tracker</title>
+  <link rel="icon" type="image/svg+xml" href="/ChoreConnectMVP/favicon.svg">
+  <title>Completed Chores · ChoreConnect</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="header container">
     <a class="brand" href="./chores_list.html" aria-label="Chore Tracker">
-      <div class="brand-logo" aria-hidden="true"></div>
+      <div class="brand-logo" aria-hidden="true">
+        <img class="brand-logo" src="./choreconnect-logo.svg" alt="ChoreConnect Logo">
+      </div>
       <div class="brand-title">Chore Tracker</div>
     </a>
     <nav class="actions">
@@ -21,66 +24,66 @@
   </header>
 
   <main class="container">
-    <section class="card" aria-labelledby="es#list-title">
-      <div class="actions" style="justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
-        <h1 id="es#list-title" style="margin: 0;">My chores</h1>
-        <form method="get" action="/chores">
-          <label for="es#filter-status" style="margin-right: 6px;">Status</label>
-          <select class="input" id="es#filter-status" name="status">
-            <option value="ALL">All</option>
-            <option value="OPEN" selected>Open</option>
-            <option value="DONE">Done</option>
-          </select>
-          <label for="es#filter-q" class="visually-hidden" style="position: absolute; left: -9999px;">Search</label>
-          <input class="input" id="es#filter-q" type="search" name="q" placeholder="Search...">
-          <button class="btn btn-primary" type="submit">Apply</button>
-        </form>
-      </div>
+    <section class="card" aria-labelledby="completed-chores-title">
+      <h1 id="completed-chores-title">Completed Chores</h1>
 
-      <!-- <div class="notice success">${message}</div> -->
       <div class="card" style="padding: 0;">
-        <table class="table" aria-describedby="es#list-title">
+        <table class="table" aria-describedby="completed-chores-title">
           <thead>
             <tr>
               <th>Title</th>
-              <th>Assignee</th>
-              <th>Due</th>
-              <th>Priority</th>
-              <th>Status</th>
-              <th></th>
+              <th>Completed By</th>
+              <th>Price</th>
+              <th>Review</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Example row; render with JSP/JSTL -->
+            <!-- Example row: render dynamically with JSP/JSTL -->
             <!--
-            <c:forEach items="${chores}" var="ch">
+            <c:forEach items="${completedChores}" var="ch">
               <tr>
                 <td>${ch.title}</td>
                 <td>${ch.assignee}</td>
-                <td>${ch.dueDate}</td>
-                <td>${ch.priority}</td>
+                <td>${ch.priceAmount}</td>
                 <td>
-                  <span class="badge ${ch.done ? 'done' : 'open'}">${ch.done ? 'Done' : 'Open'}</span>
-                </td>
-                <td class="actions">
-                  <form method="post" action="/chores/mark-done">
+                  <form method="post" action="/reviews/create">
                     <input type="hidden" name="csrfToken" value="${csrfToken}">
-                    <input type="hidden" name="id" value="${ch.id}">
-                    <button class="btn" type="submit">Mark done</button>
+                    <input type="hidden" name="choreId" value="${ch.id}">
+                    
+                    <select name="rating" class="input" required>
+                      <option value="">⭐ Rating</option>
+                      <option value="5">5</option>
+                      <option value="4">4</option>
+                      <option value="3">3</option>
+                      <option value="2">2</option>
+                      <option value="1">1</option>
+                    </select>
+
+                    <textarea name="comment" class="input" rows="2"
+                      placeholder="Leave a short review..."></textarea>
+
+                    <button class="btn btn-primary" type="submit">
+                      Submit
+                    </button>
                   </form>
                 </td>
               </tr>
             </c:forEach>
             -->
             <tr>
-              <td colspan="6" style="color: var(--muted);">No chores yet. <a href="chore_create.html">Create one</a>.</td>
+              <td colspan="4" style="color: var(--muted);">
+                No completed chores yet.
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <p class="footer">Showing ${count:0} items</p>
+    <p class="footer">Showing ${count:0} completed chores</p>
+    <div style="margin-top: 1rem;">
+      <a class="btn btn-secondary" href="chorePage.html">Back to Open Chores</a>
+    </div>
   </main>
 </body>
 </html>

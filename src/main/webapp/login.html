@@ -3,31 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="/ChoreConnectMVP/favicon.svg">
   <title>Login · ChoreConnect</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="header container">
-    <div class="brand-logo" aria-hidden="true"></div>
+    <div class="brand-logo" aria-hidden="true">
+      <img class="brand-logo" src="./choreconnect-logo.svg" alt="ChoreConnect Logo">
+    </div>
+    
     <div class="brand-title">ChoreConnect</div>
   </header>
 
   <main class="container">
     <section class="card" aria-labelledby="es#login-title">
       <h1 id="es#login-title">Sign in</h1>
-      <form action="/auth/login" method="POST">
+      <form action="login" method="POST">
         <!-- Server can inject messages below -->
-        <!-- Example: <div class="notice error" role="alert">${error}</div> -->
+   
         <input type="hidden" name="csrfToken" value="${csrfToken}">
         <div class="form-grid">
           <div>
-            <label for="es#login-email">Email</label>
-            <input class="input" id="es#login-email" name="email" type="email" required>
+                        <label for="login-email">Email</label>
+<input class="input" id="login-email" name="email" type="email" required>
+
           </div>
           <div>
-            <label for="es#login-password">Password</label>
-            <input class="input" id="es#login-password" name="password" type="password" minlength="8" required>
-          </div>
+
+<label for="login-password">Password</label>
+<input class="input" id="login-password" name="password" type="password" minlength="4" required>
         </div>
         <div class="actions" style="margin-top:12px">
           <button class="btn btn-primary" type="submit">Sign in</button>

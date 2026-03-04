@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Black background -->
+  <rect x="4" y="4" width="56" height="56" rx="12" fill="#000000"></rect>
+
+  <!-- First C -->
+  <path d="M28 18 A14 14 0 1 0 28 46" fill="none" stroke="#2DD4BF" stroke-width="6" stroke-linecap="round"></path>
+
+  <!-- Second C -->
+  <path d="M40 18 A14 14 0 1 0 40 46" fill="none" stroke="#5EEAD4" stroke-width="6" stroke-linecap="round"></path>
+</svg>
