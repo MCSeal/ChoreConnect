@@ -1,10 +1,7 @@
-
-// src/main/java/servlets/ChoreListServlet.java
 package servlets;
 
 import models.Chore;
 import services.ChoreService;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +21,7 @@ public class ChoreListServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         String message = req.getParameter("message");
-        Integer userId = (Integer) req.getSession().getAttribute("userId");
+        String userId = (String) req.getSession().getAttribute("userId");
         String userName = (String) req.getSession().getAttribute("userName");
 
         out.println("<html><head><title>Your Chores</title></head><body>");
@@ -32,7 +29,7 @@ public class ChoreListServlet extends HttpServlet {
         if (message != null) out.println("<p><b>" + message + "</b></p>");
 
         try {
-            // Fetch chores for this user
+            // Get user chores
             List<Chore> mine = choreService.getChoresByUser(userId);
 
             out.println("<h3>Your chores</h3>");
@@ -42,17 +39,30 @@ public class ChoreListServlet extends HttpServlet {
                 for (Chore ch : mine) {
                     out.println("<hr/>");
                     out.println("<b>" + ch.getTitle() + "</b> [" + ch.getStatus() + "]<br/>");
-                    out.println("<small>Public: " + (ch.isPublic() ? "Yes" : "No") + "</small><br/><br/>");
-                    out.println("<div>" + (ch.getDescription() == null ? "" : ch.getDescription()) + "</div><br/>");
-                    out.println("<a href='edit?id=" + ch.getId() + "'>Edit</a>");
+                    out.println("<small>Public: " + (ch.isPublic() ? "Yes" : "No") + "</small><br><br>");
+                    out.println("<div>" + (ch.getDescription() == null ? "" : ch.getDescription()) + "</div>");
+                    out.println("<a href='editChore?id=" + ch.getId() + "'>Edit</a>");
                     if ("ACCEPTED".equals(ch.getStatus())) {
-                        out.println(" | <a href='t?action=markDone&id=" + ch.getId() + "'>Mark done</a>");
+                        out.println(" | <a href='chore?action=markDone&id=" + ch.getId() + "'>Mark done</a>");
                     }
                     if ("DONE".equals(ch.getStatus())) {
-                        out.println(" | <a href='review?choreId=" + ch.getId() + "'>Review</a>");
+                        out.println(" | <a href='reviewChore?choreId=" + ch.getId() + "'>Review</a>");
                     }
                 }
             }
+
+            // Add public/open chores for map markers
+            List<Chore> publicChores = choreService.getPublicOpenChores();
+            if (publicChores != null && !publicChores.isEmpty()) {
+                out.println("<script>\n" +
+                        "const chores = [\n");
+                for (Chore ch : publicChores) {
+                    out.println("{id: '" + ch.getId() + "', title: '" + ch.getTitle() +
+                            "', lat: " + ch.getLatitude() + ", lng: " + ch.getLongitude() + ", price: 'N/A'},");
+                }
+                out.println("];</script>");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             out.println("<p>Error loading chores.</p>");
@@ -61,4 +71,3 @@ public class ChoreListServlet extends HttpServlet {
         out.println("</body></html>");
     }
 }
-				

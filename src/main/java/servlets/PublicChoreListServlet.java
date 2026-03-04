@@ -21,7 +21,7 @@ public class PublicChoreListServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         PrintWriter out = resp.getWriter();
         String message = req.getParameter("message");
-        Integer userId = (Integer) (req.getSession() != null ? req.getSession().getAttribute("userId") : null);
+        String userId = (String) (req.getSession() != null ? req.getSession().getAttribute("userId") : null);
 
         out.println("<html><head><title>Public Chores</title></head><body>");
         if (message != null) out.println("<p><b>" + Html.esc(message) + "</b></p>");

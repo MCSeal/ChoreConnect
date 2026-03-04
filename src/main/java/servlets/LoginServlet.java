@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
                     HttpSession session = req.getSession(true);
                     session.setAttribute("userId", u.getId());
                     session.setAttribute("userName", u.getFullName());
+                    
 
                     resp.sendRedirect(req.getContextPath() + 
                         "/choreList?message=Welcome+" +

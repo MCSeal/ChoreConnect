@@ -1,5 +1,5 @@
+package services;
 
-import services.BaseService;
 import models.Chore;
 
 import java.sql.*;
@@ -8,18 +8,20 @@ import java.util.List;
 
 public class ChoreService extends BaseService {
 
-    public List<Chore> getChoresByUser(int ownerId) throws SQLException {
+    // Get chores created by a specific user
+    public List<Chore> getChoresByUser(String userId) throws SQLException {
         String sql = "SELECT * FROM chores WHERE created_by = ? ORDER BY created_at DESC";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, ownerId);
+            ps.setString(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 return mapChores(rs);
             }
         }
     }
 
-    public List<Chore> listPublicOpen() throws SQLException {
+    // Get public and open chores
+    public List<Chore> getPublicOpenChores() throws SQLException {
         String sql = "SELECT * FROM chores WHERE is_public = 1 AND status = 'OPEN' ORDER BY created_at DESC";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql);
@@ -28,11 +30,12 @@ public class ChoreService extends BaseService {
         }
     }
 
-    public Chore getById(int id) throws SQLException {
+    // Get chore by ID
+    public Chore getById(String id) throws SQLException {
         String sql = "SELECT * FROM chores WHERE id = ?";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, id);
+            ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) return mapChore(rs);
             }
@@ -40,52 +43,63 @@ public class ChoreService extends BaseService {
         return null;
     }
 
+    // Create a chore
     public void create(Chore ch) throws SQLException {
-        String sql = "INSERT INTO chores (title, description, created_by, status, is_public) VALUES (?, ?, ?, 'OPEN', ?)";
+        String sql = "INSERT INTO chores (id, title, description, created_by, status, is_public, latitude, longitude, created_at, updated_at) " +
+                     "VALUES (?, ?, ?, ?, 'OPEN', ?, ?, ?, ?, ?)";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, ch.getTitle());
-            ps.setString(2, ch.getDescription());
-            ps.setString(3, ch.getCreatedBy());
-            ps.setBoolean(4, ch.isPublic());
+            ps.setString(1, ch.getId());
+            ps.setString(2, ch.getTitle());
+            ps.setString(3, ch.getDescription());
+            ps.setString(4, ch.getCreatedBy());
+            ps.setBoolean(5, ch.isPublic());
+            ps.setDouble(6, ch.getLatitude());
+            ps.setDouble(7, ch.getLongitude());
+            ps.setTimestamp(8, ch.getCreatedAt());
+            ps.setTimestamp(9, ch.getUpdatedAt());
             ps.executeUpdate();
         }
     }
 
-    public void update(Chore ch, int actingUserId) throws SQLException {
-        // Only owner can edit
-        String sql = "UPDATE chores SET title=?, description=?, is_public=? WHERE id=? AND created_by=?";
+    // Update a chore (only owner can edit)
+    public void update(Chore ch, String actingUserId) throws SQLException {
+        String sql = "UPDATE chores SET title=?, description=?, is_public=?, latitude=?, longitude=?, updated_at=? " +
+                     "WHERE id=? AND created_by=?";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, ch.getTitle());
             ps.setString(2, ch.getDescription());
             ps.setBoolean(3, ch.isPublic());
-            ps.setString(4, ch.getId());
-            ps.setInt(5, actingUserId);
+            ps.setDouble(4, ch.getLatitude());
+            ps.setDouble(5, ch.getLongitude());
+            ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+            ps.setString(7, ch.getId());
+            ps.setString(8, actingUserId);
             ps.executeUpdate();
         }
     }
 
-    public boolean accept(int choreId, int userId) throws SQLException {
-        // only accept if currently OPEN and not owned by userId
+    // Accept chore
+    public boolean accept(String choreId, String userId) throws SQLException {
         String sql = "UPDATE chores SET accepted_by=?, status='ACCEPTED' " +
-                     "WHERE id=? AND status='OPEN' AND (created_by <> ?)";
+                     "WHERE id=? AND status='OPEN' AND created_by<>?";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            ps.setInt(2, choreId);
-            ps.setInt(3, userId);
-            int updated = ps.executeUpdate();
-            return updated == 1;
+            ps.setString(1, userId);
+            ps.setString(2, choreId);
+            ps.setString(3, userId);
+            return ps.executeUpdate() == 1;
         }
     }
 
-    public boolean markDone(int choreId, int ownerId) throws SQLException {
+    // Mark chore done
+    public boolean markDone(String choreId, String ownerId) throws SQLException {
         String sql = "UPDATE chores SET status='DONE' WHERE id=? AND created_by=? AND status='ACCEPTED'";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, choreId);
-            ps.setInt(2, ownerId);
+            ps.setString(1, choreId);
+            ps.setString(2, ownerId);
             return ps.executeUpdate() == 1;
         }
     }
@@ -102,10 +116,11 @@ public class ChoreService extends BaseService {
         ch.setTitle(rs.getString("title"));
         ch.setDescription(rs.getString("description"));
         ch.setCreatedBy(rs.getString("created_by"));
-        int accepted = rs.getInt("accepted_by");
-     
+        ch.setAcceptedBy(rs.getString("accepted_by"));
         ch.setStatus(rs.getString("status"));
         ch.setPublic(rs.getBoolean("is_public"));
+        ch.setLatitude(rs.getDouble("latitude"));
+        ch.setLongitude(rs.getDouble("longitude"));
         ch.setCreatedAt(rs.getTimestamp("created_at"));
         ch.setUpdatedAt(rs.getTimestamp("updated_at"));
         return ch;
