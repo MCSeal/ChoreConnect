@@ -1,153 +1,166 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/svg+xml" href="/ChoreConnectMVP/favicon.svg">
-  <title>New Chore · ChoreConnect</title>
-  <link rel="stylesheet" href="styles.css"> 
-  <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml"
+	href="/ChoreConnectMVP/favicon.svg">
+<title>New Chore · ChoreConnect</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet"
+	href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+	
 </script>
-  <style>
-    .toggle-group { display: none; }
-    .toggle-group.active { display: block; }
-  </style>
+<style>
+.toggle-group {
+	display: none;
+}
+
+.toggle-group.active {
+	display: block;
+}
+</style>
 </head>
 <body>
-  <header class="header container">
-    <a class="brand" href="./choreList.html" aria-label="ChoreConnect">
-    <div class="brand-logo" aria-hidden="true">
-      <img class="brand-logo" src="./choreconnect-logo.svg" alt="ChoreConnect Logo">
-    </div>
-    
-      <div class="brand-title">ChoreConnect</div>
-    </a>
-  </header>
-  
-  <main class="container">
-    <section class="card" aria-labelledby="es#create-title">
-      <h1 id="es#create-title">Create a chore</h1>
-      
-      <!-- Create chore form -->
-      <form method="POST" action="/chores/create">
-        <input type="hidden" name="csrfToken" value="${csrfToken}">
-        
-        <div class="form-grid cols-2">
-          <div>
-            <label for="es#chore-title">Title</label>
-            <input class="input" id="es#chore-title" name="title" type="text" maxlength="120" required>
-          </div>
+	<header class="header container">
+		<a class="brand" href="./choreList.html" aria-label="ChoreConnect">
+			<div class="brand-logo" aria-hidden="true">
+				<img class="brand-logo" src="./choreconnect-logo.svg"
+					alt="ChoreConnect Logo">
+			</div>
 
-          <div>
-            <label for="es#chore-due">Due date</label>
-            <input class="input" id="es#chore-due" name="dueDate" type="date">
-          </div>
+			<div class="brand-title">ChoreConnect</div>
+		</a>
+	</header>
 
-          <div>
-            <label for="es#chore-priority">Priority</label>
-            <select class="input" id="es#chore-priority" name="priority">
-              <option value="LOW">Low</option>
-              <option value="MEDIUM" selected>Medium</option>
-              <option value="HIGH">High</option>
-            </select>
-          </div>
+	<main class="container">
+		<section class="card" aria-labelledby="es-create-title">
+			<h1 id="es-create-title">Create a chore</h1>
 
-          <div style="grid-column: 1/-1">
-            <label for="es#chore-notes">Notes</label>
-            <textarea class="input" id="es#chore-notes" name="notes" rows="4" placeholder="Optional"></textarea>
-          </div>
+			<!-- Create chore form -->
+			<form method="POST" action="/createChore">
+				<input type="hidden" name="csrfToken" value="${csrfToken}">
 
-          <!-- Price Type Toggle (Hourly vs Lump Sum) -->
-          <div class="toggle">
-            <label>
-              <input type="radio" name="priceType" value="HOURLY" id="hourly" onchange="togglePriceFields()"> Hourly
-            </label>
-            <label>
-              <input type="radio" name="priceType" value="LUMP_SUM" id="lump-sum" onchange="togglePriceFields()" checked> Lump Sum
-            </label>
-          </div>
+				<div class="form-grid cols-2">
+					<div>
+						<label for="es-chore-title">Title</label> <input class="input"
+							id="es-chore-title" name="title" type="text" maxlength="120"
+							required>
+					</div>
 
-          <!-- Hourly Rate Fields -->
-          <div class="toggle-group" id="hourly-group">
-            <div>
-              <label for="es#chore-hourly-rate">Hourly Rate</label>
-              <input class="input" id="es#chore-hourly-rate" name="hourlyRate" type="number" step="0.01" placeholder="Hourly rate" required>
-            </div>
-            <div>
-              <label for="es#chore-hours">Number of Hours</label>
-              <input class="input" id="es#chore-hours" name="hours" type="number" placeholder="Hours" required>
-            </div>
-          </div>
+					<div>
+						<label for="es-chore-due">Due date</label> <input class="input"
+							id="es-chore-due" name="dueDate" type="date">
+					</div>
 
-          <!-- Lump Sum Price Field -->
-          <div class="toggle-group active" id="lump-sum-group">
-            <div>
-              <label for="es#chore-price-amount">Price Amount</label>
-              <input class="input" id="es#chore-price-amount" name="priceAmount" type="number" step="0.01" placeholder="Enter lump sum price" required>
-            </div>
-          </div>
-          
-          <div style="grid-column: 1/-1">
-  <label>Chore Location: </label>
-  <div id="map" style="height: 300px; border-radius: 12px;"></div>
-</div>
+					<div>
+						<label for="es-chore-priority">Priority</label> <select
+							class="input" id="es-chore-priority" name="priority">
+							<option value="LOW">Low</option>
+							<option value="MEDIUM" selected>Medium</option>
+							<option value="HIGH">High</option>
+						</select>
+					</div>
 
-<input type="hidden" name="latitude" id="latitude">
-<input type="hidden" name="longitude" id="longitude">
-          
-        </div>
-        
-        <div class="actions" style="margin-top:12px">
-          <button class="btn btn-primary" type="submit">Save chore</button>
-          <a class="btn btn-secondary" href="choreList.html">Back to list</a> <!-- Fixed link -->
-        </div>
-      </form>
-    </section>
-  </main>
+					<div style="grid-column: 1/-1">
+						<label for="es-chore-notes">Notes</label>
+						<textarea class="input" id="es-chore-notes" name="notes" rows="4"
+							placeholder="Optional"></textarea>
+					</div>
 
-<script>
-  // Price toggle (your existing logic)
-  function togglePriceFields() {
-    const hourlyGroup = document.getElementById('hourly-group');
-    const lumpSumGroup = document.getElementById('lump-sum-group');
+					<!-- Price Type Toggle (Hourly vs Lump Sum) -->
+					<div class="toggle">
+						<label> <input type="radio" name="priceType"
+							value="HOURLY" id="hourly" onchange="togglePriceFields()">
+							Hourly
+						</label> <label> <input type="radio" name="priceType"
+							value="LUMP_SUM" id="lump-sum" onchange="togglePriceFields()"
+							checked> Lump Sum
+						</label>
+					</div>
 
-    if (document.getElementById('hourly').checked) {
-      hourlyGroup.classList.add('active');
-      lumpSumGroup.classList.remove('active');
-    } else {
-      hourlyGroup.classList.remove('active');
-      lumpSumGroup.classList.add('active');
-    }
-  }
+					<!-- Hourly Rate Fields -->
+					<div class="toggle-group" id="hourly-group">
+						<div>
+							<label for="es-chore-hourly-rate">Hourly Rate</label> <input
+								class="input" id="es-chore-hourly-rate" name="hourlyRate"
+								type="number" step="0.01" placeholder="Hourly rate" required>
+						</div>
+						<div>
+							<label for="es-chore-hours">Number of Hours</label> <input
+								class="input" id="es-chore-hours" name="hours" type="number"
+								placeholder="Hours" required>
+						</div>
+					</div>
 
-  // ---------------- MAP LOGIC ----------------
+					<!-- Lump Sum Price Field -->
+					<div class="toggle-group active" id="lump-sum-group">
+						<div>
+							<label for="es-chore-price-amount">Price Amount</label> <input
+								class="input" id="es-chore-price-amount" name="priceAmount"
+								type="number" step="0.01" placeholder="Enter lump sum price"
+								required>
+						</div>
+					</div>
 
-  const map = L.map('map').setView([45.4215, -75.6972], 12); // Ottawa default
+					<div style="grid-column: 1/-1">
+						<label>Chore Location: </label>
+						<div id="map" style="height: 300px; border-radius: 12px;"></div>
+					</div>
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-  }).addTo(map);
+					<input type="hidden" name="latitude" id="latitude"> <input
+						type="hidden" name="longitude" id="longitude">
 
-  let marker;
+				</div>
 
-  map.on('click', function (e) {
-    const lat = e.latlng.lat.toFixed(6);
-    const lng = e.latlng.lng.toFixed(6);
+				<div class="actions" style="margin-top: 12px">
+					<button class="btn btn-primary" type="submit">Save chore</button>
+					<a class="btn btn-secondary" href="choreList.html">Back to list</a>
+					<!-- Fixed link -->
+				</div>
+			</form>
+		</section>
+	</main>
 
-    if (marker) {
-      marker.setLatLng(e.latlng);
-    } else {
-      marker = L.marker(e.latlng).addTo(map);
-    }
+	<script>
+		// Price toggle (your existing logic)
+		function togglePriceFields() {
+			const hourlyGroup = document.getElementById('hourly-group');
+			const lumpSumGroup = document.getElementById('lump-sum-group');
 
-    document.getElementById('latitude').value = lat;
-    document.getElementById('longitude').value = lng;
-  });
-</script>
+			if (document.getElementById('hourly').checked) {
+				hourlyGroup.classList.add('active');
+				lumpSumGroup.classList.remove('active');
+			} else {
+				hourlyGroup.classList.remove('active');
+				lumpSumGroup.classList.add('active');
+			}
+		}
+
+		// ---------------- MAP LOGIC ----------------
+
+		const map = L.map('map').setView([ 45.4215, -75.6972 ], 12); // Ottawa default
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution : '© OpenStreetMap'
+		}).addTo(map);
+
+		let marker;
+
+		map.on('click', function(e) {
+			const lat = e.latlng.lat.toFixed(6);
+			const lng = e.latlng.lng.toFixed(6);
+
+			if (marker) {
+				marker.setLatLng(e.latlng);
+			} else {
+				marker = L.marker(e.latlng).addTo(map);
+			}
+
+			document.getElementById('latitude').value = lat;
+			document.getElementById('longitude').value = lng;
+		});
+	</script>
 </body>
 </html>
