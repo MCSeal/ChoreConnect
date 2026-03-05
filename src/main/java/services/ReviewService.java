@@ -48,9 +48,9 @@ public class ReviewService extends BaseService {
                 while (rs.next()) {
                     Review r = new Review();
                     r.setId(rs.getString("id"));
-                    r.setChoreId(rs.getInt("chore_id"));
-                    r.setReviewerId(rs.getInt("reviewer_id"));
-                    r.setRevieweeId(rs.getInt("reviewee_id"));
+                    r.setChoreId(rs.getString("chore_id"));
+                    r.setReviewerId(rs.getString("reviewer_id"));
+                    r.setRevieweeId(rs.getString("reviewee_id"));
                     r.setRating(rs.getInt("rating"));
                     r.setComment(rs.getString("comment"));
                     r.setCreatedAt(rs.getTimestamp("created_at"));

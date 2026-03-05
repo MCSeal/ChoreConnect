@@ -1,11 +1,10 @@
 package services;
 
-import java.io.IOException;
-import java.sql.*;
-
-import javax.servlet.ServletException;
-
 import models.User;
+import java.sql.*;
+import javax.servlet.ServletException;
+import java.io.IOException;
+
 
 public class UserService extends BaseService {
 
