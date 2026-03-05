@@ -16,7 +16,10 @@ public class Chore {
     private Timestamp updatedAt;
     private double latitude;
     private double longitude;
-
+    private String priceType;     // HOURLY or LUMP_SUM
+    private Double hourlyRate;
+    private Integer hours;
+    private Double priceAmount;
     
     
     
@@ -130,4 +133,38 @@ public class Chore {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
+    
+    public String getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(String priceType) {
+        this.priceType = priceType;
+    }
+
+    public Double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(Double hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
+
+    public Double getPriceAmount() {
+        return priceAmount;
+    }
+
+    public void setPriceAmount(Double priceAmount) {
+        this.priceAmount = priceAmount;
+    }
+    
+    
 }
