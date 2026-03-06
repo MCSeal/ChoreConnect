@@ -37,11 +37,18 @@ public class AcceptChoreServlet extends HttpServlet {
             try {
                 if (choreService.accept(choreId, userId)) {
                     out.println("<div class='card notice success'>You have successfully accepted this chore!</div>");
-                    out.println("<p><a class='btn btn-primary' href='choreList'>Go to My Chores</a></p>");
-                    out.println("<p><a class='btn btn-secondary' href='publicChoreList'>Back to Public Chores</a></p>");
+                    String context = req.getContextPath();
+                 
+                    out.println("<p><a class='btn btn-primary' href='" + context + "/choreList'>Go to My Chores</a></p>");
+                    out.println("<p><a class='btn btn-secondary' href='" + context + "/publicChoreList'>Back to Public Chores</a></p>");
+ 
                 } else {
                     out.println("<div class='card notice error'>Unable to accept this chore. It might already be taken.</div>");
-                    out.println("<p><a class='btn btn-secondary' href='publicChoreList'>Back to Public Chores</a></p>");
+                    String context = req.getContextPath();
+             
+                
+                    out.println("<p><a class='btn btn-primary' href='" + context + "/choreList'>Go to My Chores</a></p>");
+                    out.println("<p><a class='btn btn-secondary' href='" + context + "/publicChoreList'>Back to Public Chores</a></p>");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

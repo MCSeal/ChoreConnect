@@ -9,33 +9,35 @@ import java.io.IOException;
 public class UserService extends BaseService {
 
     // Register a new user
-    public User register(String email, String fullName, String password)
-            throws ServletException, IOException, SQLException {
+	public User register(String email, String fullName, String password)
+	        throws ServletException, IOException, SQLException {
 
-        String sql = "INSERT INTO users (email, full_name, password) VALUES (?, ?, ?)";
+	    String sql = "INSERT INTO users (id, email, full_name, password) VALUES (?, ?, ?, ?)";
 
-        try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+	    try (Connection c = getConnection();
+	         PreparedStatement ps = c.prepareStatement(sql)) {
 
-            ps.setString(1, email);
-            ps.setString(2, fullName);
-            ps.setString(3, password); // plain password (MVP only)
-            ps.executeUpdate();
+	        String id = java.util.UUID.randomUUID().toString();
 
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    User u = new User();
-                    u.setId(rs.getString(1)); 
-                    u.setEmail(email);
-                    u.setFullName(fullName);
-                    u.setPassword(password);
-                    return u;
-                }
-            }
-        }
+	        ps.setString(1, id);
+	        ps.setString(2, email);
+	        ps.setString(3, fullName);
+	        ps.setString(4, password);
 
-        throw new SQLException("User registration failed.");
-    }
+	        int rows = ps.executeUpdate();
+
+	        if (rows == 1) {
+	            User u = new User();
+	            u.setId(id);
+	            u.setEmail(email);
+	            u.setFullName(fullName);
+	            u.setPassword(password);
+	            return u;
+	        }
+	    }
+
+	    throw new SQLException("User registration failed.");
+	}
 
     // Authenticate user
     public User authenticate(String email, String password)

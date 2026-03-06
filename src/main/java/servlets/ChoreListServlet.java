@@ -55,6 +55,7 @@ public class ChoreListServlet extends HttpServlet {
         out.println("<a class='brand' href='" + context + "/publicChoreList'>ChoreConnect</a>");
 
         out.println("<div class='actions'>");
+        out.println("<a class='btn btn-secondary' href='" + context + "/createChore'>Create new Chore</a>");
         out.println("<a class='btn btn-secondary' href='" + context + "/publicChoreList'>Public Chores</a>");
 
         out.println("<form method='post' action='" + context + "/signout' style='display:inline'>");

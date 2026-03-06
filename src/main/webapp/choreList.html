@@ -35,7 +35,7 @@
     </a>
     <nav class="actions">
       <form method="post" action="/signout">
-        <input type="hidden" name="csrfToken" value="${csrfToken}">
+
         <button class="btn" type="submit">Sign out</button>
       </form>
     </nav>
@@ -58,11 +58,11 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tbody id="chore-table-body">
-            <tr>
-              <td colspan="3" style="color: var(--muted);">Loading chores...</td>
-            </tr>
-          </tbody>
+<tbody id="chore-table-body">
+  <tr>
+    <td colspan="3" style="color: var(--muted);">Loading chores...</td>
+  </tr>
+</tbody>
         </table>
       </div>
     </section>
@@ -71,54 +71,85 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <script>
-  const map = L.map('map').setView([45.4215, -75.6972], 12); 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-  }).addTo(map);
+ <script>
+const map = L.map('map').setView([45.4215, -75.6972], 12); 
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap'
+}).addTo(map);
 
-  // Load public chores dynamically
-  async function loadChores() {
-    try {
-      const response = await fetch('/ChoreConnectMVP/api/publicChores');
-      const chores = await response.json();
+// Load public chores dynamically
+async function loadChores() {
+  try {
+    const response = await fetch('/ChoreConnectMVP/api/publicChores');
+    const chores = await response.json();
 
-      const tbody = document.getElementById('chore-table-body');
-      tbody.innerHTML = '';
+    const tbody = document.getElementById('chore-table-body');
+    tbody.innerHTML = '';
 
-      if (chores.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="color: var(--muted);">No chores available nearby.</td></tr>`;
-        return;
-      }
-
-      chores.forEach(ch => {
-        // Add marker
-        L.marker([ch.lat, ch.lng]).addTo(map)
-          .bindPopup(`<strong>${ch.title}</strong><br>Price: ${ch.price}<br><a href="acceptChore?id=${ch.id}">View</a>`);
-
-        // Add table row
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${ch.title}</td>
-          <td>${ch.price}</td>
-          <td><a class="btn btn-primary" href="acceptChore?id=${ch.id}">Accept</a></td>
-        `;
-        tbody.appendChild(tr);
-
-        // Click row to focus map
-        tr.addEventListener('click', () => {
-          map.setView([ch.lat, ch.lng], 15);
-        });
-      });
-
-    } catch (err) {
-      console.error(err);
-      document.getElementById('chore-table-body').innerHTML =
-        `<tr><td colspan="3" style="color:red;">Error loading chores.</td></tr>`;
+    if (chores.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="3" style="color: var(--muted);">No chores available nearby.</td></tr>`;
+      return;
     }
-  }
 
-  loadChores();
-  </script>
+    chores.forEach(ch => {
+      // --- Add marker to map ---
+      const popupContent = document.createElement('div');
+      popupContent.innerHTML = `
+        <strong>${ch.title}</strong><br>
+        Price: ${ch.price}<br>
+      `;
+
+      // Create a small form for the popup to accept the chore
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = 'chore/accept';
+
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'choreId';
+      input.value = ch.id;
+      form.appendChild(input);
+
+      const button = document.createElement('button');
+      button.type = 'submit';
+      button.className = 'btn btn-primary';
+      button.textContent = 'Accept';
+      form.appendChild(button);
+
+      popupContent.appendChild(form);
+
+      L.marker([ch.lat, ch.lng])
+        .addTo(map)
+        .bindPopup(popupContent);
+
+      // --- Add table row ---
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${ch.title}</td>
+        <td>${ch.price}</td>
+        <td>
+          <form method="post" action="chore/accept" style="display:inline;">
+            <input type="hidden" name="choreId" value="${ch.id}">
+            <button type="submit" class="btn btn-primary">Accept</button>
+          </form>
+        </td>
+      `;
+      tbody.appendChild(tr);
+
+      // Click row to focus map
+      tr.addEventListener('click', () => {
+        map.setView([ch.lat, ch.lng], 15);
+      });
+    });
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById('chore-table-body').innerHTML =
+      `<tr><td colspan="3" style="color:red;">Error loading chores.</td></tr>`;
+  }
+}
+
+loadChores();
+</script>
 </body>
 </html>
