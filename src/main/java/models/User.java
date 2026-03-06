@@ -6,10 +6,10 @@ public class User {
     private String fullName;
     private String password;
 
-    // ✅ REQUIRED: empty constructor
+//empty instructor needed 
     public User() {}
 
-    // (optional) convenience constructor
+
     public User(String id, String email, String fullName, String password) {
         this.id = id;
         this.email = email;
