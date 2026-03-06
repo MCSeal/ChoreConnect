@@ -128,31 +128,30 @@ public class ChoreService extends BaseService {
 	}
 
 	public void create(Chore ch) throws SQLException {
-
+		System.out.println("Creating chore: " + ch.getTitle());
 		System.out.println("Attempting DB insert");
 		
-		String sql = "INSERT INTO chores " + "(title, description, created_by, is_public, latitude, longitude, "
-				+ "price_type, hourly_rate, hours, price_amount, status, created_at, updated_at) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'OPEN', ?, ?)";
+		String sql = "INSERT INTO chores "
+		        + "(id, title, description, created_by, is_public, latitude, longitude, "
+		        + "price_type, hourly_rate, hours, price_amount, status, created_at, updated_at) "
+		        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'OPEN', ?, ?)";
 
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 
+			ps.setString(1, ch.getId());
+			ps.setString(2, ch.getTitle());
+			ps.setString(3, ch.getDescription());
+			ps.setString(4, ch.getCreatedBy());
+			ps.setBoolean(5, ch.isPublic());
+			ps.setDouble(6, ch.getLatitude());
+			ps.setDouble(7, ch.getLongitude());
+			ps.setString(8, ch.getPriceType());
+			ps.setObject(9, ch.getHourlyRate());
+			ps.setObject(10, ch.getHours());
+			ps.setObject(11, ch.getPriceAmount());
 			Timestamp now = new Timestamp(System.currentTimeMillis());
-
-			ps.setString(1, ch.getTitle());
-			ps.setString(2, ch.getDescription());
-			ps.setString(3, ch.getCreatedBy());
-			ps.setBoolean(4, ch.isPublic());
-			ps.setDouble(5, ch.getLatitude());
-			ps.setDouble(6, ch.getLongitude());
-
-			ps.setString(7, ch.getPriceType());
-			ps.setObject(8, ch.getHourlyRate());
-			ps.setObject(9, ch.getHours());
-			ps.setObject(10, ch.getPriceAmount());
-
-			ps.setTimestamp(11, now);
 			ps.setTimestamp(12, now);
+			ps.setTimestamp(13, now);
 
 			ps.executeUpdate();
 		}

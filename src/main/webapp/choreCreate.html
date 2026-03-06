@@ -39,7 +39,7 @@
 			<h1 id="es-create-title">Create a chore</h1>
 
 			<!-- Create chore form -->
-			<form method="POST" action="/createChore">
+			<form method="POST" action="createChore">
 				<input type="hidden" name="csrfToken" value="${csrfToken}">
 
 				<div class="form-grid cols-2">
@@ -81,18 +81,28 @@
 					</div>
 
 					<!-- Hourly Rate Fields -->
-					<div class="toggle-group" id="hourly-group">
-						<div>
-							<label for="es-chore-hourly-rate">Hourly Rate</label> <input
-								class="input" id="es-chore-hourly-rate" name="hourlyRate"
-								type="number" step="0.01" placeholder="Hourly rate" required>
-						</div>
-						<div>
-							<label for="es-chore-hours">Number of Hours</label> <input
-								class="input" id="es-chore-hours" name="hours" type="number"
-								placeholder="Hours" required>
-						</div>
-					</div>
+<div class="toggle-group" id="hourly-group">
+
+<div>
+<label for="es-chore-hourly-rate">Hourly Rate</label>
+<input
+class="input"
+id="es-chore-hourly-rate"
+name="hourlyRate"
+type="number"
+step="0.01">
+</div>
+
+<div>
+<label for="es-chore-hours">Number of Hours</label>
+<input
+class="input"
+id="es-chore-hours"
+name="hours"
+type="number">
+</div>
+
+</div>
 
 					<!-- Lump Sum Price Field -->
 					<div class="toggle-group active" id="lump-sum-group">
@@ -125,18 +135,36 @@
 
 	<script>
 		// Price toggle (your existing logic)
-		function togglePriceFields() {
-			const hourlyGroup = document.getElementById('hourly-group');
-			const lumpSumGroup = document.getElementById('lump-sum-group');
+function togglePriceFields() {
 
-			if (document.getElementById('hourly').checked) {
-				hourlyGroup.classList.add('active');
-				lumpSumGroup.classList.remove('active');
-			} else {
-				hourlyGroup.classList.remove('active');
-				lumpSumGroup.classList.add('active');
-			}
-		}
+	const hourlyGroup = document.getElementById('hourly-group');
+	const lumpSumGroup = document.getElementById('lump-sum-group');
+
+	const hourlyRate = document.getElementById('es-chore-hourly-rate');
+	const hours = document.getElementById('es-chore-hours');
+	const lumpPrice = document.getElementById('es-chore-price-amount');
+
+	if (document.getElementById('hourly').checked) {
+
+		hourlyGroup.classList.add('active');
+		lumpSumGroup.classList.remove('active');
+
+		hourlyRate.required = true;
+		hours.required = true;
+
+		lumpPrice.required = false;
+
+	} else {
+
+		hourlyGroup.classList.remove('active');
+		lumpSumGroup.classList.add('active');
+
+		hourlyRate.required = false;
+		hours.required = false;
+
+		lumpPrice.required = true;
+	}
+}
 
 		// ---------------- MAP LOGIC ----------------
 

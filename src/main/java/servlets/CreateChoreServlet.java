@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
+
 
 @WebServlet("/createChore")
 public class CreateChoreServlet extends HttpServlet {
@@ -45,29 +47,50 @@ public class CreateChoreServlet extends HttpServlet {
 		double longitude = 0;
 
 		try {
-			if ("HOURLY".equals(priceType)) {
-				hourlyRate = Double.parseDouble(req.getParameter("hourlyRate"));
-				hours = Integer.parseInt(req.getParameter("hours"));
-			} else {
-				priceAmount = Double.parseDouble(req.getParameter("priceAmount"));
-			}
 
-			if ("HOURLY".equals(priceType) && hourlyRate != null && hours != null) {
-				priceAmount = hourlyRate * hours;
-			}
+		    if ("HOURLY".equals(priceType)) {
 
-			if (latitudeStr != null && longitudeStr != null) {
-				latitude = Double.parseDouble(latitudeStr);
-				longitude = Double.parseDouble(longitudeStr);
-			}
+		        String rateStr = req.getParameter("hourlyRate");
+		        String hoursStr = req.getParameter("hours");
+
+		        if (rateStr != null && !rateStr.isEmpty()) {
+		            hourlyRate = Double.parseDouble(rateStr);
+		        }
+
+		        if (hoursStr != null && !hoursStr.isEmpty()) {
+		            hours = Integer.parseInt(hoursStr);
+		        }
+
+		        if (hourlyRate != null && hours != null) {
+		            priceAmount = hourlyRate * hours;
+		        }
+
+		    } else {
+
+		        String priceStr = req.getParameter("priceAmount");
+
+		        if (priceStr != null && !priceStr.isEmpty()) {
+		            priceAmount = Double.parseDouble(priceStr);
+		        }
+
+		    }
+
+		    if (latitudeStr != null && !latitudeStr.isEmpty()) {
+		        latitude = Double.parseDouble(latitudeStr);
+		    }
+
+		    if (longitudeStr != null && !longitudeStr.isEmpty()) {
+		        longitude = Double.parseDouble(longitudeStr);
+		    }
+
 		} catch (NumberFormatException e) {
-			latitude = 0;
-			longitude = 0;
-		}
+		    e.printStackTrace();
+		} 
 
 		// 🏗 Create Chore object
 		Chore chore = new Chore();
 		chore.setTitle(title);
+		chore.setId(UUID.randomUUID().toString());
 		chore.setDescription(description);
 		chore.setCreatedBy(userId);
 		chore.setPublic(true); // default public (you can change this)
