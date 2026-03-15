@@ -1,40 +1,63 @@
 package servlets;
 
-import models.Chore;
-import services.ChoreService;
-
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import models.Chore;
+import services.ChoreService;
+
 @WebServlet("/api/publicChores")
 public class ChoreApiServlet extends HttpServlet {
-    private final ChoreService choreService = new ChoreService();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json; charset=UTF-8");
-        PrintWriter out = resp.getWriter();
+	// service used to fetch chores from db
+	private final ChoreService choreService = new ChoreService();
 
-        try {
-            List<Chore> publicChores = choreService.getPublicOpenChores();
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-            out.print("["); // start JSON array
-            for (int i = 0; i < publicChores.size(); i++) {
-                Chore ch = publicChores.get(i);
-                out.printf("{\"id\":\"%s\",\"title\":\"%s\",\"lat\":%f,\"lng\":%f,\"price\":\"N/A\"}",
-                        ch.getId(), ch.getTitle(), ch.getLatitude(), ch.getLongitude());
-                if (i < publicChores.size() - 1) out.print(",");
-            }
-            out.print("]"); // end JSON array
+		// api returns json instead of html
+		resp.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            resp.setStatus(500);
-            out.print("{\"error\":\"Failed to fetch public chores.\"}");
-        }
-    }
+		try {
+
+			// get all public chores that are still open
+			List<Chore> publicChores = choreService.getPublicOpenChores();
+
+			// start json array
+			out.print("[");
+
+			for (int i = 0; i < publicChores.size(); i++) {
+
+				Chore ch = publicChores.get(i);
+
+				// build simple json object for each chore
+				out.printf("{\"id\":\"%s\",\"title\":\"%s\",\"lat\":%f,\"lng\":%f,\"price\":\"N/A\"}", ch.getId(),
+						ch.getTitle(), ch.getLatitude(), ch.getLongitude());
+
+				// comma between objects
+				if (i < publicChores.size() - 1) {
+					out.print(",");
+				}
+			}
+
+			// end json array
+			out.print("]");
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+			// send error response
+			resp.setStatus(500);
+			out.print("{\"error\":\"Failed to fetch public chores.\"}");
+		}
+	}
 }

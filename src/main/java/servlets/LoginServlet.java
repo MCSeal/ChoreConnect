@@ -1,67 +1,53 @@
 package servlets;
 
-import models.User;
-import services.UserService;
-
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.sql.SQLException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import models.User;
+import services.UserService;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private final UserService userService = new UserService();
+	private final UserService userService = new UserService();
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = resp.getWriter();
-        String message = req.getParameter("message");
+		req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+	}
 
-        out.println("<html><head><title>Login</title></head><body>");
-        
-        if (message != null) {
-            out.println("<p style='color:red;'><b>" + message + "</b></p>");
-        }
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
 
-    }
+		try {
+			User u = userService.authenticate(email, password);
 
-    	
+			if (u != null) {
+				HttpSession session = req.getSession(true);
+				session.setAttribute("userId", u.getId());
+				session.setAttribute("userName", u.getFullName());
 
-        @Override
-        protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+				resp.sendRedirect(req.getContextPath() + "/choreList");
+			} else {
+				req.setAttribute("error", "Invalid credentials");
+				req.setAttribute("email", email);
+				req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+			}
 
-            String email = req.getParameter("email");
-            String password = req.getParameter("password");
-
-            try {
-                User u = userService.authenticate(email, password);
-
-                if (u != null) {
-                    HttpSession session = req.getSession(true);
-                    session.setAttribute("userId", u.getId());
-                    session.setAttribute("userName", u.getFullName());
-                    
-
-                    resp.sendRedirect(req.getContextPath() + 
-                        "/choreList?message=Welcome+" +
-                        java.net.URLEncoder.encode(u.getFullName(), "UTF-8"));
-
-                } else {
-                    resp.sendRedirect(req.getContextPath() +
-                        "/login?message=Invalid+credentials");
-                }
-
-            } catch (Exception e) {  
-                e.printStackTrace(); 
-                resp.sendRedirect(req.getContextPath() +
-                    "/login?message=Server+error");
-            }
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("error", "Server error");
+			req.setAttribute("email", email);
+			req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+		}
+	}
+}

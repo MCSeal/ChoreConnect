@@ -1,154 +1,132 @@
 package servlets;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import models.Chore;
 import services.ChoreService;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-
 @WebServlet("/chore/edit")
 public class EditChoreServlet extends HttpServlet {
-    private final ChoreService choreService = new ChoreService();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = resp.getWriter();
+	// service for loading and saving chores
+	private final ChoreService choreService = new ChoreService();
 
-        String userId = (String) req.getSession().getAttribute("userId");
-        String idStr = req.getParameter("id");
-        String context = req.getContextPath();
-        Chore ch = null;
-        if (idStr != null) {
-            try {
-                ch = choreService.getById(idStr);
-                if (ch == null || !ch.getCreatedBy().equals(userId)) ch = null;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        out.println("<!doctype html>");
-        out.println("<html lang='en'>");
-        out.println("<head>");
-        out.println("<meta charset='utf-8'>");
-        out.println("<meta name='viewport' content='width=device-width, initial-scale=1'>");
-        out.println("<link rel='stylesheet' href='" + context + "/styles.css'>");
-        out.println("<link rel='icon' type='image/svg+xml' href='" + context + "/favicon.svg'>");
-        out.println("<title>" + (ch != null ? "Edit Chore" : "Create Chore") + " · ChoreConnect</title>");
-        out.println("</head>");
-        out.println("<body>");
+		HttpSession session = req.getSession(false);
+		String userId = session != null ? (String) session.getAttribute("userId") : null;
 
-        // Header
-        out.println("<header class='header container'>");
-        out.println("<div class='brand-logo'><img class='brand-logo' src='" + context + "/choreconnect-logo.svg' alt='ChoreConnect Logo'></div>");
-        out.println("<div class='brand-title'>ChoreConnect</div>");
-        out.println("</header>");
+		if (userId == null) {
+			resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+		}
 
-        // Main card
-        out.println("<main class='container'>");
-        out.println("<section class='card'>");
-        out.println("<h1>" + (ch != null ? "Edit Chore" : "Create New Chore") + "</h1>");
+		String idStr = req.getParameter("id");
+		String message = req.getParameter("message");
+		Chore chore = null;
 
-        // Form
-        out.println("<form method='post' action='edit'>");
+		if (idStr != null && !idStr.isEmpty()) {
+			try {
+				chore = choreService.getById(idStr);
 
-        if (ch != null) {
-            out.println("<input type='hidden' name='id' value='" + ch.getId() + "'/>");
-        }
+				// only creator can edit
+				if (chore == null || !userId.equals(chore.getCreatedBy())) {
+					chore = null;
+				}
 
-        out.println("<div class='form-grid'>");
-        out.println("<div>");
-        out.println("<label for='title'>Title</label>");
-        out.println("<input id='title' class='input' type='text' name='title' required maxlength='200' value='" + (ch != null ? ch.getTitle() : "") + "'/>");
-        out.println("</div>");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
-        out.println("<div>");
-        out.println("<label for='description'>Description</label>");
-        out.println("<textarea id='description' class='input' name='description' rows='5'>" + (ch != null ? ch.getDescription() : "") + "</textarea>");
-        out.println("</div>");
+		req.setAttribute("chore", chore);
+		req.setAttribute("message", message);
 
-        out.println("<div>");
-        out.println("<label><input type='checkbox' name='isPublic' " + ((ch == null || ch.isPublic()) ? "checked" : "") + "> Public</label>");
-        out.println("</div>");
+		req.getRequestDispatcher("/WEB-INF/editChore.jsp").forward(req, resp);
+	}
 
-        out.println("<div>");
-        out.println("<label for='latitude'>Latitude</label>");
-        out.println("<input id='latitude' class='input' type='number' step='0.000001' name='latitude' value='" + (ch != null ? ch.getLatitude() : "") + "'/>");
-        out.println("</div>");
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        out.println("<div>");
-        out.println("<label for='longitude'>Longitude</label>");
-        out.println("<input id='longitude' class='input' type='number' step='0.000001' name='longitude' value='" + (ch != null ? ch.getLongitude() : "") + "'/>");
-        out.println("</div>");
-        out.println("</div>"); // form-grid
+		HttpSession session = req.getSession(false);
+		String userId = session != null ? (String) session.getAttribute("userId") : null;
 
-        out.println("<div class='actions' style='margin-top:12px'>");
-        out.println("<button class='btn btn-primary' type='submit'>" + (ch != null ? "Update Chore" : "Create Chore") + "</button>");
-        out.println("<a class='btn btn-secondary' href='" + context + "/choreList'>Back to My Chores</a>");
-        out.println("</div>");
+		if (userId == null) {
+			resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+		}
 
-        out.println("</form>");
-        out.println("</section>");
+		String idStr = req.getParameter("id");
+		String title = req.getParameter("title");
+		String description = req.getParameter("description");
+		boolean isPublic = req.getParameter("isPublic") != null;
 
-        out.println("<p class='footer'>© 2026 ChoreConnect</p>");
-        out.println("</main>");
+		double latitude = 0;
+		double longitude = 0;
 
-        out.println("</body></html>");
-    }
+		try {
+			String latStr = req.getParameter("latitude");
+			String lngStr = req.getParameter("longitude");
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String userId = (String) req.getSession().getAttribute("userId");
-        if (userId == null) {
-            resp.sendRedirect(req.getContextPath() + "/login?message=Please+login");
-            return;
-        }
+			if (latStr != null && !latStr.isEmpty()) {
+				latitude = Double.parseDouble(latStr);
+			}
 
-        String idStr = req.getParameter("id");
-        String title = req.getParameter("title");
-        String description = req.getParameter("description");
-        boolean isPublic = req.getParameter("isPublic") != null;
-        double latitude = 0;
-        double longitude = 0;
+			if (lngStr != null && !lngStr.isEmpty()) {
+				longitude = Double.parseDouble(lngStr);
+			}
 
-        try {
-            String latStr = req.getParameter("latitude");
-            String lngStr = req.getParameter("longitude");
-            if (latStr != null && !latStr.isEmpty()) latitude = Double.parseDouble(latStr);
-            if (lngStr != null && !lngStr.isEmpty()) longitude = Double.parseDouble(lngStr);
-        } catch (NumberFormatException e) {
-            // ignore invalid
-        }
+		} catch (NumberFormatException e) {
+			req.setAttribute("error", "invalid latitude or longitude");
+			req.setAttribute("formTitle", title);
+			req.setAttribute("formDescription", description);
+			req.setAttribute("formIsPublic", isPublic);
+			req.setAttribute("formLatitude", req.getParameter("latitude"));
+			req.setAttribute("formLongitude", req.getParameter("longitude"));
+			req.getRequestDispatcher("/WEB-INF/editChore.jsp").forward(req, resp);
+			return;
+		}
 
-        if (title == null || title.trim().isEmpty()) {
-            resp.sendRedirect(req.getContextPath() + "/chore/edit?message=Title+required");
-            return;
-        }
+		if (title == null || title.trim().isEmpty()) {
+			req.setAttribute("error", "title required");
+			req.setAttribute("formTitle", title);
+			req.setAttribute("formDescription", description);
+			req.setAttribute("formIsPublic", isPublic);
+			req.setAttribute("formLatitude", req.getParameter("latitude"));
+			req.setAttribute("formLongitude", req.getParameter("longitude"));
+			req.getRequestDispatcher("/WEB-INF/editChore.jsp").forward(req, resp);
+			return;
+		}
 
-        Chore ch = new Chore();
-        ch.setId(idStr);
-        ch.setTitle(title.trim());
-        ch.setDescription(description);
-        ch.setPublic(isPublic);
-        ch.setLatitude(latitude);
-        ch.setLongitude(longitude);
-        ch.setCreatedBy(userId);
+		Chore ch = new Chore();
+		ch.setId(idStr);
+		ch.setTitle(title.trim());
+		ch.setDescription(description);
+		ch.setPublic(isPublic);
+		ch.setLatitude(latitude);
+		ch.setLongitude(longitude);
+		ch.setCreatedBy(userId);
 
-        try {
-            if (idStr == null || idStr.isEmpty()) {
-                choreService.create(ch);
-                resp.sendRedirect(req.getContextPath() + "/choreList?message=Chore+created");
-            } else {
-                choreService.update(ch, userId);
-                resp.sendRedirect(req.getContextPath() + "/choreList?message=Chore+updated");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            resp.sendRedirect(req.getContextPath() + "/choreList?message=Error+saving+chore");
-        }
-    }
+		try {
+			if (idStr == null || idStr.isEmpty()) {
+				choreService.create(ch);
+				resp.sendRedirect(req.getContextPath() + "/choreList?message=Chore+created");
+			} else {
+				choreService.update(ch, userId);
+				resp.sendRedirect(req.getContextPath() + "/choreList?message=Chore+updated");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			resp.sendRedirect(req.getContextPath() + "/choreList?message=Error+saving+chore");
+		}
+	}
 }

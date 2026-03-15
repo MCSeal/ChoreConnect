@@ -1,60 +1,70 @@
 package servlets;
 
-import models.User;
-import services.UserService;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import models.User;
+import services.UserService;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-    private final UserService userService = new UserService();
+	private final UserService userService = new UserService();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = resp.getWriter();
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String context = req.getContextPath();
-        String message = req.getParameter("message");
+		req.getRequestDispatcher("/WEB-INF/register.jsp").forward(req, resp);
+	}
 
-        out.println("<html><head><title>Login</title></head><body>");
-        
-        if (message != null) {
-            out.println("<p style='color:red;'><b>" + message + "</b></p>");
-        }
-        out.println("</main></body></html>");
-    }
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String fullName = req.getParameter("fullName");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
+		String fullName = req.getParameter("fullName");
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		String confirmPassword = req.getParameter("confirmPassword");
 
-        if (!password.equals(confirmPassword)) {
-            resp.sendRedirect(req.getContextPath() + "/register?message=Passwords+do+not+match");
-            return;
-        }
-        if (fullName == null || email == null || password == null
-                || fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            resp.sendRedirect(req.getContextPath() + "/register?message=All+fields+are+required");
-            return;
-        }
+		if (fullName == null || email == null || password == null || confirmPassword == null
+				|| fullName.trim().isEmpty() || email.trim().isEmpty() || password.isEmpty()
+				|| confirmPassword.isEmpty()) {
 
-        try {
-            User u = userService.register(email, fullName, password);
-            req.getSession(true).setAttribute("userId", u.getId());
-            req.getSession().setAttribute("userName", u.getFullName());
-            resp.sendRedirect(req.getContextPath() + "/choreList?message=Registration+successful");
-        } catch (ServletException | IOException | SQLException e) {
-            e.printStackTrace();
-            resp.sendRedirect(req.getContextPath() + "/register?message=Registration+failed+(maybe+email+in+use)");
-        }
-    }
+			req.setAttribute("error", "All fields are required");
+			req.setAttribute("fullName", fullName);
+			req.setAttribute("email", email);
+			req.getRequestDispatcher("/WEB-INF/register.jsp").forward(req, resp);
+			return;
+		}
+
+		if (!password.equals(confirmPassword)) {
+			req.setAttribute("error", "Passwords do not match");
+			req.setAttribute("fullName", fullName);
+			req.setAttribute("email", email);
+			req.getRequestDispatcher("/WEB-INF/register.jsp").forward(req, resp);
+			return;
+		}
+
+		try {
+			User u = userService.register(email, fullName, password);
+
+			HttpSession session = req.getSession(true);
+			session.setAttribute("userId", u.getId());
+			session.setAttribute("userName", u.getFullName());
+
+			resp.sendRedirect(req.getContextPath() + "/choreList");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			req.setAttribute("error", "Registration failed (maybe email already in use)");
+			req.setAttribute("fullName", fullName);
+			req.setAttribute("email", email);
+			req.getRequestDispatcher("/WEB-INF/register.jsp").forward(req, resp);
+		}
+	}
 }
