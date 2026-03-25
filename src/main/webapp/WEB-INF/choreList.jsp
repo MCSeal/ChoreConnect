@@ -192,7 +192,7 @@
 
         <section class="card">
             <h2>Your Posted Chores That Were Completed</h2>
-            <p class="section-subtext">Finished jobs you created. You can review the worker once.</p>
+            <p class="section-subtext">Finished jobs you created. You can review the worker once the chore has been completed.</p>
 
             <% if (postedCompleted == null || postedCompleted.isEmpty()) { %>
                 <p>No completed posted chores yet.</p>
