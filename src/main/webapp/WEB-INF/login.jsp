@@ -23,7 +23,7 @@
 
       <% String error = (String) request.getAttribute("error"); %>
       <% if (error != null) { %>
-        <div class="notice error" role="alert" style="margin-bottom: 12px;">
+        <div class="notice error top-padding" role="alert" style="margin-bottom: 12px;">
           <%= error %>
         </div>
       <% } %>
@@ -60,7 +60,7 @@
         </div>
       </form>
 
-      <p>Don't have an account? <a href="<%= request.getContextPath() %>/register.html">Create account</a></p>
+      <p>Don't have an account? <a href="<%= request.getContextPath() %>/register">Create account</a></p>
     </section>
 
     <p class="footer">© 2026 ChoreConnect</p>

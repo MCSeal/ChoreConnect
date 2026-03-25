@@ -16,7 +16,6 @@ import services.ChoreService;
 @WebServlet("/chore/edit")
 public class EditChoreServlet extends HttpServlet {
 
-	// service for loading and saving chores
 	private final ChoreService choreService = new ChoreService();
 
 	@Override
@@ -38,7 +37,6 @@ public class EditChoreServlet extends HttpServlet {
 			try {
 				chore = choreService.getById(idStr);
 
-				// only creator can edit
 				if (chore == null || !userId.equals(chore.getCreatedBy())) {
 					chore = null;
 				}
@@ -73,6 +71,11 @@ public class EditChoreServlet extends HttpServlet {
 		double latitude = 0;
 		double longitude = 0;
 
+		String priceType = req.getParameter("priceType");
+		Double hourlyRate = null;
+		Integer hours = null;
+		Double priceAmount = null;
+
 		try {
 			String latStr = req.getParameter("latitude");
 			String lngStr = req.getParameter("longitude");
@@ -85,25 +88,66 @@ public class EditChoreServlet extends HttpServlet {
 				longitude = Double.parseDouble(lngStr);
 			}
 
+			String hourlyRateStr = req.getParameter("hourlyRate");
+			String hoursStr = req.getParameter("hours");
+			String priceAmountStr = req.getParameter("priceAmount");
+
+			if (hourlyRateStr != null && !hourlyRateStr.isEmpty()) {
+				hourlyRate = Double.parseDouble(hourlyRateStr);
+			}
+
+			if (hoursStr != null && !hoursStr.isEmpty()) {
+				hours = Integer.parseInt(hoursStr);
+			}
+
+			if (priceAmountStr != null && !priceAmountStr.isEmpty()) {
+				priceAmount = Double.parseDouble(priceAmountStr);
+			}
+
 		} catch (NumberFormatException e) {
-			req.setAttribute("error", "invalid latitude or longitude");
+			req.setAttribute("error", "Invalid number entered.");
 			req.setAttribute("formTitle", title);
 			req.setAttribute("formDescription", description);
 			req.setAttribute("formIsPublic", isPublic);
 			req.setAttribute("formLatitude", req.getParameter("latitude"));
 			req.setAttribute("formLongitude", req.getParameter("longitude"));
+			req.setAttribute("formPriceType", req.getParameter("priceType"));
+			req.setAttribute("formHourlyRate", req.getParameter("hourlyRate"));
+			req.setAttribute("formHours", req.getParameter("hours"));
+			req.setAttribute("formPriceAmount", req.getParameter("priceAmount"));
 			req.getRequestDispatcher("/WEB-INF/editChore.jsp").forward(req, resp);
 			return;
 		}
 
 		if (title == null || title.trim().isEmpty()) {
-			req.setAttribute("error", "title required");
+			req.setAttribute("error", "Title required.");
 			req.setAttribute("formTitle", title);
 			req.setAttribute("formDescription", description);
 			req.setAttribute("formIsPublic", isPublic);
 			req.setAttribute("formLatitude", req.getParameter("latitude"));
 			req.setAttribute("formLongitude", req.getParameter("longitude"));
+			req.setAttribute("formPriceType", req.getParameter("priceType"));
+			req.setAttribute("formHourlyRate", req.getParameter("hourlyRate"));
+			req.setAttribute("formHours", req.getParameter("hours"));
+			req.setAttribute("formPriceAmount", req.getParameter("priceAmount"));
 			req.getRequestDispatcher("/WEB-INF/editChore.jsp").forward(req, resp);
+			return;
+		}
+
+		Chore existing = null;
+
+		try {
+			if (idStr != null && !idStr.isEmpty()) {
+				existing = choreService.getById(idStr);
+
+				if (existing == null || !userId.equals(existing.getCreatedBy())) {
+					resp.sendRedirect(req.getContextPath() + "/choreList?message=Chore+not+found");
+					return;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			resp.sendRedirect(req.getContextPath() + "/choreList?message=Error+loading+chore");
 			return;
 		}
 
@@ -115,6 +159,18 @@ public class EditChoreServlet extends HttpServlet {
 		ch.setLatitude(latitude);
 		ch.setLongitude(longitude);
 		ch.setCreatedBy(userId);
+
+		if (existing == null || "OPEN".equals(existing.getStatus())) {
+			ch.setPriceType(priceType);
+			ch.setHourlyRate(hourlyRate);
+			ch.setHours(hours);
+			ch.setPriceAmount(priceAmount);
+		} else {
+			ch.setPriceType(existing.getPriceType());
+			ch.setHourlyRate(existing.getHourlyRate());
+			ch.setHours(existing.getHours());
+			ch.setPriceAmount(existing.getPriceAmount());
+		}
 
 		try {
 			if (idStr == null || idStr.isEmpty()) {

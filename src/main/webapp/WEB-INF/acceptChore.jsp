@@ -29,15 +29,15 @@
         <div class="card notice <%= messageType %>">
             <%= message %>
         </div>
-
-        <p>
+		<div class="button-links">
+        <p class="top-padding">
             <a class="btn btn-primary" href="<%= context %>/choreList">Go to My Chores</a>
         </p>
 
         <p>
             <a class="btn btn-secondary" href="<%= context %>/publicChoreList">Back to Public Chores</a>
         </p>
-
+		</div>
     </div>
 </body>
 </html>
