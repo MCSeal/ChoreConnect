@@ -118,10 +118,8 @@ p {
 		<p>Organize chores. Share responsibilities. Stay connected.</p>
 
 		<!-- Buttons -->
-		<a href="<%=request.getContextPath()%>/login.jsp"
-			class="btn login-btn">Login</a> <a
-			href="<%=request.getContextPath()%>/register.jsp"
-			class="btn register-btn">Register</a>
+		<a href="<%=request.getContextPath()%>/login.jsp" class="btn login-btn">Login</a> 
+		<a href="<%=request.getContextPath()%>/register.jsp" class="btn register-btn">Register</a>
 
 		<!-- Footer -->
 		<div class="footer">© 2026 ChoreConnect</div>
