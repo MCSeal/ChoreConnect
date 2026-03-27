@@ -24,18 +24,30 @@ body {
 }
 
 .container {
-	background: rgba(255, 255, 255, 0.1);
-	backdrop-filter: blur(12px);
-	border-radius: 20px;
-	padding: 50px 40px;
-	text-align: center;
-	box-shadow: 0 8px 30px rgba(45, 212, 191, 0.25);
-	width: 350px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    width: 350px;
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 10px 40px rgba(45, 212, 191, 0.4);
+    transform: translateY(-3px);
 }
 
 .logo {
-	width: 100px;
-	margin-bottom: 20px;
+    width: 100px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    filter: drop-shadow(0 0 10px rgba(45, 212, 191, 0.7));
+    transform: scale(1.05);
 }
 
 h1 {
@@ -50,17 +62,17 @@ p {
 }
 
 .btn {
-	display: block;
-	width: 100%;
-	padding: 12px;
-	margin: 10px 0;
-	border-radius: 10px;
-	border: none;
-	font-size: 1rem;
-	font-weight: bold;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .login-btn {
@@ -68,17 +80,21 @@ p {
 	color: #0F766E;
 }
 
-.login-btn:hover {
-	background-color: #ecfeff;
-}
-
 .register-btn {
 	background-color: #2DD4BF;
 	color: white;
 }
 
+.login-btn:hover {
+    background-color: #ecfeff;
+    box-shadow: 0 0 15px rgba(45, 212, 191, 0.5);
+    transform: translateY(-2px);
+}
+
 .register-btn:hover {
-	background-color: #14B8A6;
+    background-color: #14B8A6;
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.7);
+    transform: translateY(-2px);
 }
 
 .footer {
