@@ -1,7 +1,10 @@
 package models;
 
+import java.util.UUID;
+
+
 public class User {
-    private String id;
+    private UUID id;
     private String email;
     private String fullName;
     private String password;
@@ -10,18 +13,18 @@ public class User {
     public User() {}
 
 
-    public User(String id, String email, String fullName, String password) {
+    public User(UUID id, String email, String fullName, String password) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
         this.password = password;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
