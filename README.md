@@ -20,29 +20,49 @@ src/main/webapp/WEB-INF/ → JSP
 CREATE DATABASE choreconnect;
 USE choreconnect;
 
-CREATE TABLE `logs` (
-  `uuid` char(36) COLLATE utf8_unicode_ci NOT NULL,
-  `title` char(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `content` text COLLATE utf8_unicode_ci,
-  `createTimestamp` date DEFAULT NULL,
-  PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE DATABASE choreconnectmvp;
+USE choreconnectmvp;
 
-LOCK TABLES `logs` WRITE;
-INSERT INTO `logs` VALUES ('ac299eb1-599e-4599-b22b-95e889448793','Two','Another content is 2',NULL),('d2bbd408-2836-4c96-92b2-0d44210e8502','One','One content',NULL);
-UNLOCK TABLES;
-
-CREATE TABLE `users` (
-    `id` char(36) COLLATE utf8_unicode_ci NOT NULL,
-    `email` char(100) COLLATE utf8_unicode_ci NOT NULL,
-    `full_name` char(100) COLLATE utf8_unicode_ci NOT NULL,
-    `password` char(255) NOT NULL,
-    PRIMARY KEY (`id`)
+CREATE TABLE users (
+id VARCHAR(36) PRIMARY KEY,
+email VARCHAR(255) NOT NULL UNIQUE,
+full_name VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL
 );
 
-LOCK TABLES `users` WRITE;
-INSERT INTO `users` VALUES ('a3f1c2d4-1234-4abc-9f12-abcdef123456', 'john@example.com', 'John Doe', 'password123'),('b7e2d9f8-5678-4def-8a34-bcdefa654321', 'jane@example.com', 'Jane Smith', 'mypassword');
-UNLOCK TABLES;
+CREATE TABLE chores (
+id VARCHAR(36) PRIMARY KEY,
+title VARCHAR(255) NOT NULL,
+description TEXT,
+created_by VARCHAR(36) NOT NULL,
+accepted_by VARCHAR(36),
+status VARCHAR(20) NOT NULL,
+is_public BOOLEAN NOT NULL,
+created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+CONSTRAINT fk_chores_created_by
+FOREIGN KEY (created_by) REFERENCES users(id),
+latitude DOUBLE NOT NULL,
+longitude DOUBLE NOT NULL,
+CONSTRAINT fk_chores_accepted_by
+FOREIGN KEY (accepted_by) REFERENCES users(id)
+);
+ 
+CREATE TABLE reviews (
+id VARCHAR(36) PRIMARY KEY,
+chore_id VARCHAR(36) NOT NULL,
+reviewer_id VARCHAR(36) NOT NULL,
+reviewee_id VARCHAR(36) NOT NULL,
+rating INT NOT NULL,
+comment TEXT,
+created_at TIMESTAMP NOT NULL,
+CONSTRAINT fk_reviews_chore
+FOREIGN KEY (chore_id) REFERENCES chores(id),
+CONSTRAINT fk_reviews_reviewer
+FOREIGN KEY (reviewer_id) REFERENCES users(id),
+CONSTRAINT fk_reviews_reviewee
+FOREIGN KEY (reviewee_id) REFERENCES users(id)
+);
 
 
 5. Database Connection
