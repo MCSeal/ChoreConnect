@@ -98,5 +98,3 @@ http://localhost:8080/ChoreConnectMVP/
 - Export WAR
 - Copy to Tomcat webapps/
 - Start Tomcat
-
-End of Instructions
