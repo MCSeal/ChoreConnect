@@ -23,7 +23,7 @@
 
       <% String error = (String) request.getAttribute("error"); %>
       <% if (error != null) { %>
-        <div class="notice error top-padding" role="alert" style="margin-bottom: 12px;">
+        <div class="notice error" role="alert" style="margin-bottom: 12px;">
           <%= error %>
         </div>
       <% } %>
