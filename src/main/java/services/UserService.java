@@ -1,113 +1,103 @@
 package services;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import models.User;
+import java.sql.*;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
+import java.io.IOException;
 
-import models.User;
 
 public class UserService extends BaseService {
 
-	// Register a new user
+    // Register a new user
 	public User register(String email, String fullName, String password)
-			throws ServletException, IOException, SQLException {
+	        throws ServletException, IOException, SQLException {
 
-		String sql = "INSERT INTO users (id, email, full_name, password) VALUES (?, ?, ?, ?)";
+	    String sql = "INSERT INTO users (id, email, full_name, password) VALUES (?, ?, ?, ?)";
 
-		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+	    try (Connection c = getConnection();
+	         PreparedStatement ps = c.prepareStatement(sql)) {
 
-			String id = java.util.UUID.randomUUID().toString();
+	        UUID uuid = UUID.randomUUID();              // ✅ UUID object
+	        String id = uuid.toString();                // DB still stores String
 
-			ps.setString(1, id);
-			ps.setString(2, email);
-			ps.setString(3, fullName);
-			ps.setString(4, password);
+	        ps.setString(1, id);
+	        ps.setString(2, email);
+	        ps.setString(3, fullName);
+	        ps.setString(4, password);
 
-			int rows = ps.executeUpdate();
+	        int rows = ps.executeUpdate();
 
-			if (rows == 1) {
-				User u = new User();
-				u.setId(id);
-				u.setEmail(email);
-				u.setFullName(fullName);
-				u.setPassword(password);
-				return u;
-			}
-		}
+	        if (rows == 1) {
+	            User u = new User();
+	            u.setId(uuid);                         // ✅ FIX
+	            u.setEmail(email);
+	            u.setFullName(fullName);
+	            u.setPassword(password);
+	            return u;
+	        }
+	    }
 
-		throw new SQLException("User registration failed.");
+	    throw new SQLException("User registration failed.");
 	}
 
-	// Authenticate user
-	public User authenticate(String email, String password) throws ServletException, IOException, SQLException {
 
-		String sql = "SELECT id, email, full_name, password FROM users WHERE email = ?";
+    // Authenticate user
+    public User authenticate(String email, String password)
+            throws ServletException, IOException, SQLException {
 
-		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        String sql = "SELECT id, email, full_name, password FROM users WHERE email = ?";
 
-			ps.setString(1, email);
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
 
-			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next()) {
-					String expectedPassword = rs.getString("password");
+            ps.setString(1, email);
 
-					if (expectedPassword.equals(password)) {
-						User u = new User();
-						u.setId(rs.getString("id"));
-						u.setEmail(rs.getString("email"));
-						u.setFullName(rs.getString("full_name"));
-						u.setPassword(password);
-						return u;
-					}
-				}
-			}
-		}
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String expectedPassword = rs.getString("password");
 
-		// if login fails return null
+                    if (expectedPassword.equals(password)) {
+                        User u = new User();
+                        UUID uuid = UUID.fromString(rs.getString("id"));
+                        u.setId(uuid);
+                        u.setEmail(rs.getString("email"));
+                        u.setFullName(rs.getString("full_name"));
+                        u.setPassword(password);
+                        return u;
+                    }
+                }
+            }
+        }
+        
+        //if login fails return null
 
-		return null;
-	}
+        return null; 
+    }
 
-	// Find user by ID
-	public User findById(String id) throws ServletException, IOException, SQLException {
+    // Find user by ID
+    public User findById(UUID id)
+            throws ServletException, IOException, SQLException {
 
-		String sql = "SELECT id, email, full_name FROM users WHERE id = ?";
+        String sql = "SELECT id, email, full_name FROM users WHERE id = ?";
 
-		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
 
-			ps.setString(1, id);
+            ps.setString(1, id.toString());
 
-			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next()) {
-					User u = new User();
-					u.setId(rs.getString("id"));
-					u.setEmail(rs.getString("email"));
-					u.setFullName(rs.getString("full_name"));
-					return u;
-				}
-			}
-		}
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    User u = new User();
+                    u.setId(UUID.fromString(rs.getString("id")));
+                    u.setEmail(rs.getString("email"));
+                    u.setFullName(rs.getString("full_name"));
+                    return u;
+                }
+            }
+        }
 
-		return null;
-	}
-
-	public String getFullNameById(String userId) throws SQLException {
-		String sql = "SELECT full_name FROM users WHERE id = ?";
-
-		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-			ps.setString(1, userId);
-
-			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next()) {
-					return rs.getString("full_name");
-				}
-			}
-		}
-
-		return null;
-	}
+        return null;
+    }
 }
