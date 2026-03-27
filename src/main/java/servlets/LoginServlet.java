@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+		req.getRequestDispatcher("/login.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -33,21 +33,21 @@ public class LoginServlet extends HttpServlet {
 
 			if (u != null) {
 				HttpSession session = req.getSession(true);
-				session.setAttribute("userId", u.getId());
+				session.setAttribute("userId", u.getId().toString());
 				session.setAttribute("userName", u.getFullName());
 
 				resp.sendRedirect(req.getContextPath() + "/choreList");
 			} else {
 				req.setAttribute("error", "Invalid credentials");
 				req.setAttribute("email", email);
-				req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+				req.getRequestDispatcher("/login.jsp").forward(req, resp);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			req.setAttribute("error", "Server error");
 			req.setAttribute("email", email);
-			req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+			req.getRequestDispatcher("/login.jsp").forward(req, resp);
 		}
 	}
 }
