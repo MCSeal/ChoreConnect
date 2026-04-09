@@ -92,16 +92,18 @@ public class EditChoreServlet extends HttpServlet {
 			String hoursStr = req.getParameter("hours");
 			String priceAmountStr = req.getParameter("priceAmount");
 
-			if (hourlyRateStr != null && !hourlyRateStr.isEmpty()) {
-				hourlyRate = Double.parseDouble(hourlyRateStr);
+			if (hourlyRateStr != null && !hourlyRateStr.trim().isEmpty()) {
+				double parsedHourlyRate = Double.parseDouble(hourlyRateStr.trim());
+				hourlyRate = Math.round(parsedHourlyRate * 100.0) / 100.0;
 			}
 
-			if (hoursStr != null && !hoursStr.isEmpty()) {
-				hours = Integer.parseInt(hoursStr);
+			if (hoursStr != null && !hoursStr.trim().isEmpty()) {
+				hours = Integer.parseInt(hoursStr.trim());
 			}
 
-			if (priceAmountStr != null && !priceAmountStr.isEmpty()) {
-				priceAmount = Double.parseDouble(priceAmountStr);
+			if (priceAmountStr != null && !priceAmountStr.trim().isEmpty()) {
+				double parsedPriceAmount = Double.parseDouble(priceAmountStr.trim());
+				priceAmount = Math.round(parsedPriceAmount * 100.0) / 100.0;
 			}
 
 		} catch (NumberFormatException e) {

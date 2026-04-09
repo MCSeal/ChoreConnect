@@ -19,7 +19,6 @@ public class RegisterServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		req.getRequestDispatcher("/WEB-INF/register.jsp").forward(req, resp);
 	}
 
@@ -31,9 +30,16 @@ public class RegisterServlet extends HttpServlet {
 		String password = req.getParameter("password");
 		String confirmPassword = req.getParameter("confirmPassword");
 
-		if (fullName == null || email == null || password == null || confirmPassword == null
-				|| fullName.trim().isEmpty() || email.trim().isEmpty() || password.isEmpty()
-				|| confirmPassword.isEmpty()) {
+		// trim text fields before validation and save
+		if (fullName != null) {
+			fullName = fullName.trim();
+		}
+		if (email != null) {
+			email = email.trim();
+		}
+
+		if (fullName == null || email == null || password == null || confirmPassword == null || fullName.isEmpty()
+				|| email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
 
 			req.setAttribute("error", "All fields are required");
 			req.setAttribute("fullName", fullName);
@@ -61,7 +67,16 @@ public class RegisterServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			req.setAttribute("error", "Registration failed (maybe email already in use)");
+
+			String message = e.getMessage();
+
+			// show a cleaner message for the common duplicate email case
+			if ("Email already in use.".equals(message)) {
+				req.setAttribute("error", "That email is already registered");
+			} else {
+				req.setAttribute("error", "Registration failed. Please try again.");
+			}
+
 			req.setAttribute("fullName", fullName);
 			req.setAttribute("email", email);
 			req.getRequestDispatcher("/WEB-INF/register.jsp").forward(req, resp);
